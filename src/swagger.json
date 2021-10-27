@@ -1,0 +1,272 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Desafio04 - Trilha NodeJS",
+		"description": "Documentando a aplicação",
+		"version": "1.0.0",
+		"contact": {
+			"email": "siqueira@gmail.com.br"
+		}
+	},
+	"paths": {
+		"/users": {
+			"post": {
+                "tags" : ["Users"] ,
+				"summary": "Create a User",
+				"description": "Create a new user",
+				"requestBody": {
+					"content" : {
+						"application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example" : {
+                                    "name": "User name sample",
+                                    "description" : "User email sample"
+                                }
+                                   
+                            }
+					    }
+                    }
+				},
+                "responses" :  {
+                    "201" : {
+                        "description": "Created",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties": {
+                                        "admin" : {
+                                            "type" : "boolean"
+                                        },
+                                        "id" : {
+                                            "type" : "string"
+                                        },
+                                        "name": {
+                                            "type" : "string"
+                                        },
+                                        "email" : {
+                                            "type" : "string"
+                                        },
+                                        "created_at" : {
+                                            "type" : "string"
+                                        },
+                                        "updated_at" : {
+                                            "type" : "string"
+                                        }
+                                    },
+                                    "example" : {
+                                        "admin": "false",
+                                        "id": "292d9d4c-3c7a-4f3b-8ad3-56d13c0e40e9",
+                                        "name": "User name sample",
+                                        "description" : "User email sample",
+                                        "created_at" : "2021-03-10T22:10:32:9922",
+                                        "updated_at" : "2021-03-10T22:10:32:9922"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description": "Email already used",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "error" : {
+                                            "type" : "Email already used"
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+			    }
+            },
+            "get":{
+                "tags": ["Users"],
+                "summary" : "List all users, if admin",
+                "description" : "Only to admin users",
+                "parameters" : [{
+                    "in" : "header",
+                    "name" : "user_id",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    
+                    },
+                    "description" : "User numeric identification"
+                }],
+                "responses": {
+                    "201" : {
+                        "description": "Success",
+                        "content" : {
+                            "application/json" : {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "admin" : {
+                                            "type" : "boolean"
+                                        },
+                                        "id" : {
+                                            "type" : "string"
+                                        },
+                                        "name": {
+                                            "type" : "string"
+                                        },
+                                        "email" : {
+                                            "type" : "string"
+                                        },
+                                        "created_at" : {
+                                            "type" : "string"
+                                        },
+                                        "updated_at" : {
+                                            "type" : "string"
+                                        }
+                                    },
+                                    "example" : {
+                                        "admin": "false",
+                                        "id": "292d9d4c-3c7a-4f3b-8ad3-56d13c0e40e9",
+                                        "name": "User name sample",
+                                        "description" : "User email sample",
+                                        "created_at" : "2021-03-10T22:10:32:9922",
+                                        "updated_at" : "2021-03-10T22:10:32:9922"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "error" : {
+                                            "type" : "User is not an admin"
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}" : {
+            "get" : {
+                "tags":["Users"],
+                "summary" : "Show specific user profile",
+                "description" : "Show specific user profile",
+                "parameters" : [{
+                    "in" : "path",
+                    "name" : "user_id",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    },
+                    "description" : "User numeric identification"
+                }],
+                "responses" : {
+                    "201": {
+                        "description" : "Success",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "name" : {
+                                            "type": "string"
+                                        },
+                                        "description" : {
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }    
+                        }
+                    },
+                    "404" : {
+                        "description": "User not found",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "error" : {
+                                            "type" : "User not found"
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+	    },
+        "/users/{user_id}/admin" : {
+            "patch" : {
+                "tags" : ["Users"],
+                "summary" : "Turn user into admin",
+                "description" : "Turn user into admin",
+                "parameters" :[{
+                    "in" : "path",
+                    "name" : "user_id",
+                    "required" : "true",
+                    "schema" : {
+                        "type" : "string"
+                    },
+                    "description" : "User numeric identification"
+                }],
+                "responses" : {
+                    "201" : {
+                        "description" : "Success",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "name" : {
+                                            "type": "string"
+                                        },
+                                        "description" : {
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }    
+                        }
+                    },
+                    "400" : {
+                        "description": "User not exists!",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "error" : {
+                                            "type" : "User Not Exists!"
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
