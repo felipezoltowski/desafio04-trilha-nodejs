@@ -10,3 +10,6 @@ Conhecimentos abordados neste desafio:
 - Testes com JEST
 - Organização de pacotes
 - Construção de Controllers e Casos de Uso(Use Case)
+
+Execução do projeto:
+- Ao baixar os arquivos, executar o comando yarn no terminal.
