@@ -12,4 +12,5 @@ Conhecimentos abordados neste desafio:
 - Construção de Controllers e Casos de Uso(Use Case)
 
 Execução do projeto:
-- Ao baixar os arquivos, executar o comando yarn no terminal.
+- Ao baixar os arquivos, executar o comando yarn no terminal para baixar as dependencias.
+- Para executar, basta rodar o comando yarn dev.
